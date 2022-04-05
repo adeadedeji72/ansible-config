@@ -1,5 +1,13 @@
+/* groovylint-disable LineLength */
+/* groovylint-disable-next-line CompileStatic */
 pipeline {
-    agent any
+  agent any
+  environment {
+      ANSIBLE_CONFIG = "${WORKSPACE}/deploy/ansible.cfg"
+    }
+  parameters {
+      string(name: 'inventory', defaultValue: 'dev',  description: 'This is the inventory file for the environment to deploy configuration')
+    }
 
   stages {
     stage('Initial Cleanup') {
@@ -9,36 +17,27 @@ pipeline {
         }
       }
     }
-    stage('Build') {
+    stage('Checkout SCM') {
       steps {
-        script {
-          sh 'echo "Building Stage"'
-        }
+        git branch: 'feature/jenkinspipeline-stages', url: 'https://github.com/adeadedeji72/ansible-config.git'
       }
     }
-    stage('Test') {
+    stage('Prepare Ansible for Execusion') {
       steps {
-        script {
-          sh 'echo "Testing Stage"'
-        }
+        sh 'echo ${WORKSPACE}'
+        sh 'sed -i "3 a roles_path=${WORKSPACE}/roles" ${WORKSPACE}/deploy/ansible.cfg'
       }
     }
-    stage('Package') {
+    stage('Run Ansible Playbook') {
       steps {
-        sh 'echo "Packaging Stage"'
+        /* groovylint-disable-next-line GStringExpressionWithinString */
+        ansiblePlaybook become: true, colorized: true, credentialsId: 'private-key', disableHostKeyChecking: true, installation: 'ansible', inventory: 'inventory/${inventory}', playbook: 'playbooks/site.yml'
       }
     }
-    stage('Deploy') {
+    stage('Clean Workspace after buil') {
       steps {
-        script {
-        sh 'echo "Deployment Stage"'
-        }
-      }
-    }
-    stage('Clean Up') {
-      steps {
-        cleanWs()
-        }
+        cleanWs(cleanWhenAborted: true, cleanWhenFailure: true, cleanWhenNotBuilt: true, cleanWhenUnstable: true, deleteDirs: true)
       }
     }
   }
+}
