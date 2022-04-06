@@ -21,6 +21,7 @@
 
 - name: reload the /etc/profile
   ansible.builtin.command: source  /etc/profile
+  register: myoutput
 # executable: /bin/sh
 
 
