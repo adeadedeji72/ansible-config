@@ -20,7 +20,7 @@
   
 
 - name: reload the /etc/profile
-  ansible.builtin.command:
+#  ansible.builtin.command:
   cmd: source  /etc/profile
 #  executable: /bin/sh
 
@@ -39,11 +39,11 @@
     follow: yes
 
 - name: update cache
-  ansible.builtin.yum:
+  ansible.builtin.apt:
     update_cache: yes
 
 - name: install artifactory
-  ansible.builtin.yum:
+  ansible.builtin.apt:
     name: jfrog-artifactory-oss
     state: present
 
