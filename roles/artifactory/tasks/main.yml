@@ -20,7 +20,7 @@
   
 
 - name: reload the /etc/profile
-  shell: source ~/.profile
+  shell: source  /etc/profile
 
 
 - name: add the repository key to repos list
