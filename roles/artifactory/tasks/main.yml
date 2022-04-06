@@ -44,7 +44,7 @@
 
 - name: install artifactory
   ansible.builtin.apt:
-    name: jfrog-artifactory-oss
+    name: jfrog-artifactory-rpms.repo
     state: present
 
 - name: start and enable artifactory
