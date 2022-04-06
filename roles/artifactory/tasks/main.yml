@@ -27,14 +27,14 @@
 
 - name: add the repository key to repos list
   ansible.builtin.get_url:
-    url:  https://releases.jfrog.io/artifactory/artifactory-rpms/artifactory-rpms.repo 
-    dest: /home/ubuntu/jfrog-artifactory-rpms.repo
+    url:  https://releases.jfrog.io/artifactory/bintray-artifactory/org/artifactory/oss/jfrog-artifactory-oss/7.31.11/jfrog-artifactory-oss-7.31.11-linux.tar.gz
+    dest: /home/ubuntu/jfrog-artifactory-oss-7.31.11-linux.tar.gz
     mode: '0755'
  
 - name: Copy the downloaded file to the etc repo
   ansible.builtin.copy:
-    src: /home/ubuntu/jfrog-artifactory-rpms.repo
-    dest: /etc/apt/sources.list.d/jfrog-artifactory-rpms.repo
+    src: /home/ubuntu/jfrog-artifactory-oss-7.31.11-linux.tar.gz
+    dest: /etc/apt/sources.list.d/jfrog-artifactory-oss-7.31.11-linux.tar.gz
     remote_src: yes
     follow: yes
 
@@ -44,7 +44,7 @@
 
 - name: install artifactory
   ansible.builtin.apt:
-    name: jfrog-artifactory-rpms.repo
+    name: jfrog-artifactory-oss-7.31.11-linux.tar.gz
     state: present
 
 - name: start and enable artifactory
