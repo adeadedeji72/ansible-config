@@ -34,7 +34,7 @@
 - name: Copy the downloaded file to the etc repo
   ansible.builtin.copy:
     src: /home/ubuntu/jfrog-artifactory-rpms.repo
-    dest: /etc/apt/source.list.d/jfrog-artifactory-rpms.repo
+    dest: /etc/apt/sources.list.d/jfrog-artifactory-rpms.repo
     remote_src: yes
     follow: yes
 
