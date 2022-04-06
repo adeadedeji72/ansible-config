@@ -21,7 +21,7 @@
 
 - name: reload the /etc/profile
   shell: source  /etc/profile
-  executable: /bin/sh
+#  executable: /bin/sh
 
 
 - name: add the repository key to repos list
