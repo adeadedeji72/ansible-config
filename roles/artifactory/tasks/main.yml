@@ -20,7 +20,7 @@
   
 
 - name: reload the /etc/profile
-  ansible.builtin.command
+  ansible.builtin.command:
   cmd: source  /etc/profile
 #  executable: /bin/sh
 
