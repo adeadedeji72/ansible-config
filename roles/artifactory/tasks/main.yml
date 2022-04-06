@@ -20,9 +20,8 @@
   
 
 - name: reload the /etc/profile
-#  ansible.builtin.command:
-  cmd: source  /etc/profile
-#  executable: /bin/sh
+  ansible.builtin.command: source  /etc/profile
+# executable: /bin/sh
 
 
 - name: add the repository key to repos list
